@@ -9,7 +9,7 @@
         android:roundIcon="@drawable/ic_bk_app"
         android:supportsRtl="true"
         android:theme="@style/Theme.BkApp">
-        <activity android:name=".MainActivity">
+        <activity android:name=".ui.activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
