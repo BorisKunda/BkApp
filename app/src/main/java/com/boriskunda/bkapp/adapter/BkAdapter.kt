@@ -25,8 +25,8 @@ class BkAdapter(
         val country = countriesMutableList[position]
 
         holder.apply {
-            countryNativeNameTv.text = country.nativeName
             countryEnglishNameTv.text = country.englishName
+            countryNativeNameTv.text = country.nativeName
             //---
             itemView.setOnClickListener {
                 onRVItemClickListener.onRVItemClick(country)
@@ -39,8 +39,8 @@ class BkAdapter(
 
 
     class BkViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val countryNativeNameTv: TextView = itemView.findViewById(R.id.native_name_tv)
         val countryEnglishNameTv: TextView = itemView.findViewById(R.id.english_name_tv)
+        val countryNativeNameTv: TextView = itemView.findViewById(R.id.native_name_tv)
     }
 
     interface OnRVItemClickListener {

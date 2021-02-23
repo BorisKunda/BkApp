@@ -9,16 +9,16 @@
 
     <TextView
         android:textColor="#000"
-        tools:text="NativeName"
-        android:id="@+id/native_name_tv"
+        tools:text="EnglishName"
+        android:id="@+id/english_name_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 
     <TextView
         android:textColor="#000"
-        tools:text="EnglishName"
+        tools:text="NativeName"
         android:layout_marginTop="10dp"
-        android:id="@+id/english_name_tv"
+        android:id="@+id/native_name_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 

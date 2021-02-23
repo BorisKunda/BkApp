@@ -50,27 +50,27 @@ class MainActivity : AppCompatActivity() {
         borderCountriesFragment = BorderCountriesFragment()
     }
 
-    /**menu*/
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        super.onCreateOptionsMenu(menu)
-        menuInflater.inflate(R.menu.main_menu, menu)
-        return true
-    }
+///**menu*/
+//override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+//    super.onCreateOptionsMenu(menu)
+//    menuInflater.inflate(R.menu.main_menu, menu)
+//    return true
+//}
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+//override fun onOptionsItemSelected(item: MenuItem): Boolean {
 
-        when (item.itemId) {
+//    when (item.itemId) {
 
-            R.id.name_menu_item -> {
-                BkConstants.debugPrint("name")
-            }
-            R.id.area_menu_item -> {
-                BkConstants.debugPrint("area")
-            }
+//        R.id.name_menu_item -> {
+//            BkConstants.debugPrint("name")
+//        }
+//        R.id.area_menu_item -> {
+//            BkConstants.debugPrint("area")
+//        }
 
-        }
+//    }
 
-        return super.onOptionsItemSelected(item)
-    }
+//    return super.onOptionsItemSelected(item)
+//}
 
 }
