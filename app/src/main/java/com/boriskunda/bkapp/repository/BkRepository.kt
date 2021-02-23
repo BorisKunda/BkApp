@@ -30,7 +30,7 @@ class BkRepository private constructor(application: Application) {
 
     }
 
-    fun loadWorldCountriesListFromApi() {
+    fun loadWorldCountriesList() {
         JsonArrayRequest(Request.Method.GET, BkConstants.GET_WORLD_COUNTRIES_LIST_URL, null,
 
             {

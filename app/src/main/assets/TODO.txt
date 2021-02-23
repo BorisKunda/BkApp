@@ -1,1 +1,3 @@
 progress bar
+error handling
+code review

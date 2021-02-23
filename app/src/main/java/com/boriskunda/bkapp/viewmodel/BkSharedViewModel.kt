@@ -11,17 +11,22 @@ class BkSharedViewModel(application: Application) : AndroidViewModel(application
 
     val goToWorldCountriesFragmentSle: SingleLiveEvent<Boolean> = SingleLiveEvent()
     val goToBorderCountriesFragmentSle: SingleLiveEvent<Boolean> = SingleLiveEvent()
+    private var bkRepository: BkRepository = BkRepository.getRepoInstance(application)
     var worldCountriesListLd: LiveData<List<Country>>
     var borderCountriesListLd: LiveData<List<Country>>
 
     init {
-        BkRepository.getRepoInstance(application).let {
+        bkRepository.let {
             worldCountriesListLd = it.worldCountriesListMLd
             borderCountriesListLd = it.borderCountriesListMLd
         }
-
     }
 
+    fun requestWorldCountriesList() {
+          bkRepository.loadWorldCountriesList()
+    }
+
+    /**navigation*/
     fun openWorldCountriesScreen() {
         goToWorldCountriesFragmentSle.call()
     }
@@ -29,7 +34,6 @@ class BkSharedViewModel(application: Application) : AndroidViewModel(application
     fun openBorderCountriesScreen() {
         goToBorderCountriesFragmentSle.call()
     }
-
 
 
 }
