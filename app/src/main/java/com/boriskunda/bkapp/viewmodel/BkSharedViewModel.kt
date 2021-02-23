@@ -5,6 +5,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import com.boriskunda.bkapp.data.Country
 import com.boriskunda.bkapp.repository.BkRepository
+import com.boriskunda.bkapp.utils.CountryListSortOptions
 import com.boriskunda.bkapp.utils.SingleLiveEvent
 
 class BkSharedViewModel(application: Application) : AndroidViewModel(application) {
@@ -23,7 +24,7 @@ class BkSharedViewModel(application: Application) : AndroidViewModel(application
     }
 
     fun requestWorldCountriesList() {
-          bkRepository.loadWorldCountriesList()
+        bkRepository.loadWorldCountriesList()
     }
 
     /**navigation*/
@@ -35,5 +36,8 @@ class BkSharedViewModel(application: Application) : AndroidViewModel(application
         goToBorderCountriesFragmentSle.call()
     }
 
+    fun sortCountriesListBy(countryListSortOptions: CountryListSortOptions) {
+        bkRepository.performCountriesListSort(countryListSortOptions)
+    }
 
 }

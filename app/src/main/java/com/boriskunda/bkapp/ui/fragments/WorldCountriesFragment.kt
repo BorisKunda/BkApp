@@ -1,6 +1,7 @@
 package com.boriskunda.bkapp.ui.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -43,6 +44,7 @@ class WorldCountriesFragment : Fragment(), BkAdapter.OnRVItemClickListener {
             worldCountriesListLd.observe(viewLifecycleOwner, {
                 worldCountryAdapter.apply {
                     countriesMutableList = it.toMutableList()
+                    Log.i("Bk", "****---WCF:$it---****")
                     notifyDataSetChanged()
                 }
             })

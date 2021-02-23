@@ -1,13 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/name_menu_item"
-        android:title="sort by name" />
+        android:id="@+id/name_asc_menu_item"
+        android:title="Name (Asc)" />
 
     <item
-        android:id="@+id/area_menu_item"
-        android:title="sort by area" />
+        android:id="@+id/name_desc_menu_item"
+        android:title="Name (Desc)" />
+
+    <item
+        android:id="@+id/area_big_small_menu_item"
+        android:title="Area (Desc)" />
+
+    <item
+        android:id="@+id/area_small_big_menu_item"
+        android:title="Area (Asc)" />
 
 </menu>
