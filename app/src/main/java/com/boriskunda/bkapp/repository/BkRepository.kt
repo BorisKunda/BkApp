@@ -17,6 +17,7 @@ class BkRepository private constructor(application: Application) {
 
     private val volleyRequestQueue: RequestQueue = Volley.newRequestQueue(application)
     val worldCountriesListMLd: MutableLiveData<List<Country>> = MutableLiveData()
+    private var worldCountriesMutableList: MutableList<Country> = mutableListOf()
     val borderCountriesListMLd: MutableLiveData<List<Country>> = MutableLiveData()
 
     companion object {
@@ -36,7 +37,9 @@ class BkRepository private constructor(application: Application) {
 
             {
                 Log.i("Bk", "****---Response:$it---****")
-                worldCountriesListMLd.postValue( Gson().fromJson(it.toString(), Array<Country>::class.java).toList())
+                worldCountriesMutableList =
+                    Gson().fromJson(it.toString(), Array<Country>::class.java).toMutableList()
+                worldCountriesListMLd.postValue(worldCountriesMutableList)
             },
 
             {
@@ -53,21 +56,34 @@ class BkRepository private constructor(application: Application) {
         when (countryListSortOptions) {
 
             CountryListSortOptions.NAME_ASC -> {
-            //  worldCountriesMutableList.apply { sortBy { it.englishName } }.let {
-            //      worldCountriesListMLd.postValue(it)
-            //  }
+                worldCountriesMutableList.apply { sortBy { it.englishName } }.let {
+                    worldCountriesListMLd.postValue(it)
+                }
             }
 
             CountryListSortOptions.NAME_DESC -> {
-              //  worldCountriesMutableList.apply { sortByDescending { it.englishName } }.let {
-              //      worldCountriesListMLd.postValue(it)
-              //  }
+                worldCountriesMutableList.apply { sortByDescending { it.englishName } }.let {
+                    worldCountriesListMLd.postValue(it)
+                }
             }
 
             CountryListSortOptions.AREA_ASC -> {
-                //   worldCountriesMutableList.apply { sortBy { it.area.toInt() } }.let {
-                //       worldCountriesListMLd.postValue(it)
-                //   }
+
+                worldCountriesMutableList.apply { sortBy {
+
+                    if (it.area.isNullOrEmpty()) {
+
+                    } else {
+
+                    }
+
+                    it.area.toInt()
+
+                }
+                }.let {
+                    worldCountriesListMLd.postValue(it)
+                }
+
             }
 
             CountryListSortOptions.AREA_DESC -> {//int string conversion
