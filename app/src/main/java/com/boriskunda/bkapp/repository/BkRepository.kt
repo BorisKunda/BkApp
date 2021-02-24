@@ -78,11 +78,8 @@ class BkRepository private constructor(application: Application) {
             }
 
             CountryListSortOptions.AREA_DESC -> {
-                worldCountriesListMLd.postValue(
-                    worldCountriesMutableList.sortedWith(
-                        comparatorAreaAsc
-                    ).reversed()
-                )
+                worldCountriesMutableList = worldCountriesMutableList.sortedWith(comparatorAreaAsc).reversed().toMutableList()
+                worldCountriesListMLd.postValue(worldCountriesMutableList)
             }
         }
 
