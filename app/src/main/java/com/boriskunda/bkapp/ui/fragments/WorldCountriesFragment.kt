@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.boriskunda.bkapp.R
 import com.boriskunda.bkapp.adapter.BkAdapter
 import com.boriskunda.bkapp.data.Country
+import com.boriskunda.bkapp.utils.BkConstants.debugPrint
 import com.boriskunda.bkapp.viewmodel.BkSharedViewModel
 import kotlinx.android.synthetic.main.fragment_world_countries.*
 
@@ -54,7 +55,9 @@ class WorldCountriesFragment : Fragment(), BkAdapter.OnRVItemClickListener {
     }
 
     override fun onRVItemClick(country: Country) {
-
+        debugPrint(country.englishName)
+        bkSharedViewModel.selectedCountryMld.value = country
+        bkSharedViewModel.openBorderCountriesScreen()
     }
 
 }

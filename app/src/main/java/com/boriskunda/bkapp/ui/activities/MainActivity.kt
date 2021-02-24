@@ -36,7 +36,7 @@ class MainActivity : AppCompatActivity() {
         })
 
         bkSharedViewModel.goToBorderCountriesFragmentSle.observe(this, {
-            fragmentManager.beginTransaction().replace(R.id.fr_container_ll, worldCountriesFragment)
+            fragmentManager.beginTransaction().replace(R.id.fr_container_ll, borderCountriesFragment)
                 .addToBackStack(
                     BkConstants.MAIN_FRAGMENT_CONTAINER_BACKSTACK
                 ).commit()

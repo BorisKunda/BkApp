@@ -27,7 +27,6 @@ class BkAdapter(
         holder.apply {
             countryEnglishNameTv.text = country.englishName
             countryNativeNameTv.text = country.nativeName
-            areaTv.text = country.area ?: "-1" //todo remove this element
             //---
             itemView.setOnClickListener {
                 onRVItemClickListener.onRVItemClick(country)
@@ -42,7 +41,6 @@ class BkAdapter(
     class BkViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val countryEnglishNameTv: TextView = itemView.findViewById(R.id.english_name_tv)
         val countryNativeNameTv: TextView = itemView.findViewById(R.id.native_name_tv)
-        val areaTv: TextView = itemView.findViewById(R.id.area_tv)//todo remove this element
     }
 
     interface OnRVItemClickListener {

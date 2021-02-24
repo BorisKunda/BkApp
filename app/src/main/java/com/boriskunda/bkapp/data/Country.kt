@@ -6,6 +6,6 @@ class Country(
     var nativeName: String,
     @SerializedName("name")
     var englishName: String,
-    var area: String?
-    //borders
+    var area: String?,
+    var borders:Array<String>
 )
