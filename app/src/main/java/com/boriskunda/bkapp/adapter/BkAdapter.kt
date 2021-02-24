@@ -27,7 +27,7 @@ class BkAdapter(
         holder.apply {
             countryEnglishNameTv.text = country.englishName
             countryNativeNameTv.text = country.nativeName
-            areaTv.text = country.area//todo remove this element
+            areaTv.text = country.area ?: "-1" //todo remove this element
             //---
             itemView.setOnClickListener {
                 onRVItemClickListener.onRVItemClick(country)

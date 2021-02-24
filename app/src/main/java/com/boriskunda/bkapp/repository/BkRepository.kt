@@ -19,6 +19,11 @@ class BkRepository private constructor(application: Application) {
     val worldCountriesListMLd: MutableLiveData<List<Country>> = MutableLiveData()
     private var worldCountriesMutableList: MutableList<Country> = mutableListOf()
     val borderCountriesListMLd: MutableLiveData<List<Country>> = MutableLiveData()
+    private lateinit var comparatorAreaAsc: Comparator<Country>
+
+    init {
+        setComparator()
+    }
 
     companion object {
 
@@ -68,33 +73,39 @@ class BkRepository private constructor(application: Application) {
             }
 
             CountryListSortOptions.AREA_ASC -> {
-
-                worldCountriesMutableList.apply { sortBy {
-
-                    if (it.area.isNullOrEmpty()) {
-
-                    } else {
-
-                    }
-
-                    it.area.toInt()
-
-                }
-                }.let {
-                    worldCountriesListMLd.postValue(it)
-                }
-
+                worldCountriesMutableList.sortWith(comparatorAreaAsc)
+                worldCountriesListMLd.postValue(worldCountriesMutableList)
             }
 
-            CountryListSortOptions.AREA_DESC -> {//int string conversion
-                //   worldCountriesMutableList
-                //       .apply { sortByDescending { it.area.toInt() } }
-                //       .let {
-                //           worldCountriesListMLd.postValue(it)
-                //       }
+            CountryListSortOptions.AREA_DESC -> {
+                worldCountriesListMLd.postValue(
+                    worldCountriesMutableList.sortedWith(
+                        comparatorAreaAsc
+                    ).reversed()
+                )
             }
         }
 
+    }
+
+    private fun setComparator() {
+        comparatorAreaAsc = Comparator { a, b ->
+            val e1: Double? = a.area?.toDoubleOrNull()
+            val e2: Double? = b.area?.toDoubleOrNull()
+
+            when {
+                e1 == e2 -> {
+                    0
+                }
+                e1 == null -> {
+                    -1
+                }
+                e2 == null -> {
+                    1
+                }
+                else -> if (e1 > e2) 1 else -1
+            }
+        }
     }
 
 }
