@@ -6,10 +6,11 @@ import androidx.lifecycle.MutableLiveData
 import com.android.volley.Request
 import com.android.volley.RequestQueue
 import com.android.volley.toolbox.JsonArrayRequest
+import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import com.boriskunda.bkapp.data.Country
-import com.boriskunda.bkapp.utils.BkConstants
 import com.boriskunda.bkapp.manager.CoroutinesManager
+import com.boriskunda.bkapp.utils.BkConstants
 import com.boriskunda.bkapp.utils.CountryListSortOptions
 import com.google.gson.Gson
 import kotlinx.coroutines.Job
@@ -61,22 +62,68 @@ class BkRepository private constructor(application: Application) {
             volleyRequestQueue.add(it)
         }
     }
+
+
+//
+//        val jsonObjectRequest: JsonObjectRequest = object : JsonObjectRequest(
+//            Request.Method.GET,
+//            BkConstants.GET_COUNTRY_BY_THREE_LETTER_CODE_URL + code,
+//            null,
+//            { countryFromCode = Gson().fromJson(it.toString(), Country::class.java) }, { countryFromCode = null })
+
+
+    // return countryFromCode
+
+
+    private fun loadCountryByItsCode(code: String) { //: // {
+
+        var jsonObjectRequest = JsonObjectRequest(Request.Method.GET,
+            BkConstants.GET_COUNTRY_BY_THREE_LETTER_CODE_URL + code,
+            null,
+            {},
+            {})
+
+//        //https://restcountries.eu/rest/v2/alpha/EGY
+//
+        //   var countryFromCode: Country? = null
+//        var jsonObjectRequest = object :
+        //      Request.Method.GET,
+        //      BkConstants.GET_COUNTRY_BY_THREE_LETTER_CODE_URL + code,
+        //      null,
+        //      {
+        //      },
+        //      {
+        //      }
+        //  )
+    }
+
+
     /**----------------------------------------------------------------------------*/
 
     /**coroutines test*/
     fun tryAsyncNetworkCall(value: Country?) {
-        Log.i(BkConstants.BK_LOG_TAG, "-----Async network calls without error handling-----")
+
+        var borderCountriesCodes: Array<String>? = value?.borders
+
+        //Log.i(BkConstants.BK_LOG_TAG, "-----Async network calls without error handling-----")
         CoroutinesManager().ioScope.launch {
             val job = ArrayList<Job>()
 
-            Log.i(BkConstants.BK_LOG_TAG, "Making 10 asynchronous network calls")
-           // for (i in 0..10) {
-                job.add(launch {
-                    //loadWorldCountriesList()
-                   // Log.i(BkConstants.BK_LOG_TAG, "Network Call ID: $i")
-                    //fetchDetailsRepo.fetchDetails()
-                })
-          //  }
+            if (borderCountriesCodes != null) {
+                for (code in borderCountriesCodes) {
+                    job.add(launch {
+
+                    })
+                }
+            }
+            //Log.i(BkConstants.BK_LOG_TAG, "Making 10 asynchronous network calls")
+            // for (i in 0..10) {
+            job.add(launch {
+                //loadWorldCountriesList()
+                // Log.i(BkConstants.BK_LOG_TAG, "Network Call ID: $i")
+                //fetchDetailsRepo.fetchDetails()
+            })
+            //  }
 
             job.joinAll()
             Log.i(BkConstants.BK_LOG_TAG, "All Networks calls have completed executing")
@@ -111,7 +158,9 @@ class BkRepository private constructor(application: Application) {
             }
 
             CountryListSortOptions.AREA_DESC -> {
-                worldCountriesMutableList = worldCountriesMutableList.sortedWith(comparatorAreaAsc).reversed().toMutableList()
+                worldCountriesMutableList =
+                    worldCountriesMutableList.sortedWith(comparatorAreaAsc).reversed()
+                        .toMutableList()
                 worldCountriesListMLd.postValue(worldCountriesMutableList)
             }
         }
