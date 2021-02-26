@@ -38,6 +38,7 @@ class BkRepository private constructor(application: Application) {
     }
 
     fun loadWorldCountriesList() {
+        //"https://restcountries.eu/rest/v2/all"
         JsonArrayRequest(Request.Method.GET, BkConstants.GET_WORLD_COUNTRIES_LIST_URL, null,
 
             {
@@ -54,6 +55,10 @@ class BkRepository private constructor(application: Application) {
         ).let {
             volleyRequestQueue.add(it)
         }
+    }
+
+    fun loadBorderCountriesList() {
+        //https://restcountries.eu/rest/v2/name/{name}
     }
 
     fun performCountriesListSort(countryListSortOptions: CountryListSortOptions) {

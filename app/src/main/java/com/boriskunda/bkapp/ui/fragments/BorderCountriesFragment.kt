@@ -25,7 +25,11 @@ class BorderCountriesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        bkSharedViewModel.get
 
+        bkSharedViewModel.borderCountriesListLd.observe(viewLifecycleOwner, {
+
+        })
 
     }
 

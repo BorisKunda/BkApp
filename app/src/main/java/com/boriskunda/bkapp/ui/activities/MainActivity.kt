@@ -16,8 +16,8 @@ import com.boriskunda.bkapp.viewmodel.BkSharedViewModel
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var worldCountriesFragment: WorldCountriesFragment//blue
-    private lateinit var borderCountriesFragment: BorderCountriesFragment//orange
+    private lateinit var worldCountriesFragment: WorldCountriesFragment
+    private lateinit var borderCountriesFragment: BorderCountriesFragment
     private lateinit var fragmentManager: FragmentManager
     private val bkSharedViewModel: BkSharedViewModel by viewModels()
 

@@ -13,7 +13,7 @@ class BkSharedViewModel(application: Application) : AndroidViewModel(application
 
     val goToWorldCountriesFragmentSle: SingleLiveEvent<Boolean> = SingleLiveEvent()
     val goToBorderCountriesFragmentSle: SingleLiveEvent<Boolean> = SingleLiveEvent()
-    //var borderCountriesListLd: LiveData<List<Country>>
+    var borderCountriesListLd: LiveData<List<Country>>
     var selectedCountryMld: MutableLiveData<Country> = MutableLiveData()
     var selectedCountryLd: LiveData<Country> = selectedCountryMld
     var worldCountriesListLd: LiveData<List<Country>>
@@ -24,12 +24,16 @@ class BkSharedViewModel(application: Application) : AndroidViewModel(application
     init {
         bkRepository.let {
             worldCountriesListLd = it.worldCountriesListMLd
-            // borderCountriesListLd = it.borderCountriesListMLd
+            borderCountriesListLd = it.borderCountriesListMLd
         }
     }
 
     fun requestWorldCountriesList() {
         bkRepository.loadWorldCountriesList()
+    }
+
+    fun requestBorderCountriesList() {
+        bkRepository.loadBorderCountriesList()
     }
 
     /**navigation*/
