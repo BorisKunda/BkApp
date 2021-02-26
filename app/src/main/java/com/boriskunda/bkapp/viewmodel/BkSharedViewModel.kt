@@ -15,7 +15,7 @@ class BkSharedViewModel(application: Application) : AndroidViewModel(application
     val goToBorderCountriesFragmentSle: SingleLiveEvent<Boolean> = SingleLiveEvent()
     var borderCountriesListLd: LiveData<List<Country>>
     var selectedCountryMld: MutableLiveData<Country> = MutableLiveData()
-    var selectedCountryLd: LiveData<Country> = selectedCountryMld
+    //var selectedCountryLd: LiveData<Country> = selectedCountryMld
     var worldCountriesListLd: LiveData<List<Country>>
 
 
@@ -29,7 +29,8 @@ class BkSharedViewModel(application: Application) : AndroidViewModel(application
     }
 
     fun requestWorldCountriesList() {
-        bkRepository.loadWorldCountriesList()
+        //bkRepository.loadWorldCountriesList()
+        bkRepository.tryAsyncNetworkCall(selectedCountryMld.value)
     }
 
     fun requestBorderCountriesList() {

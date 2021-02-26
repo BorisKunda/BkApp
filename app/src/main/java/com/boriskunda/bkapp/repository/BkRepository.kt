@@ -9,8 +9,12 @@ import com.android.volley.toolbox.JsonArrayRequest
 import com.android.volley.toolbox.Volley
 import com.boriskunda.bkapp.data.Country
 import com.boriskunda.bkapp.utils.BkConstants
+import com.boriskunda.bkapp.manager.CoroutinesManager
 import com.boriskunda.bkapp.utils.CountryListSortOptions
 import com.google.gson.Gson
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.joinAll
+import kotlinx.coroutines.launch
 
 
 class BkRepository private constructor(application: Application) {
@@ -20,6 +24,7 @@ class BkRepository private constructor(application: Application) {
     private var worldCountriesMutableList: MutableList<Country> = mutableListOf()
     val borderCountriesListMLd: MutableLiveData<List<Country>> = MutableLiveData()
     private lateinit var comparatorAreaAsc: Comparator<Country>
+
 
     init {
         setComparator()
@@ -42,20 +47,43 @@ class BkRepository private constructor(application: Application) {
         JsonArrayRequest(Request.Method.GET, BkConstants.GET_WORLD_COUNTRIES_LIST_URL, null,
 
             {
-                Log.i("Bk", "****---Response:$it---****")
+                Log.i(BkConstants.BK_LOG_TAG, "****---Response:$it---****")
                 worldCountriesMutableList =
                     Gson().fromJson(it.toString(), Array<Country>::class.java).toMutableList()
                 worldCountriesListMLd.postValue(worldCountriesMutableList)
             },
 
             {
-                Log.e("Bk", "****---Response:${it.cause}---****")
+                Log.e(BkConstants.BK_LOG_TAG, "****---Response:${it.cause}---****")
             }
 
         ).let {
             volleyRequestQueue.add(it)
         }
     }
+    /**----------------------------------------------------------------------------*/
+
+    /**coroutines test*/
+    fun tryAsyncNetworkCall(value: Country?) {
+        Log.i(BkConstants.BK_LOG_TAG, "-----Async network calls without error handling-----")
+        CoroutinesManager().ioScope.launch {
+            val job = ArrayList<Job>()
+
+            Log.i(BkConstants.BK_LOG_TAG, "Making 10 asynchronous network calls")
+           // for (i in 0..10) {
+                job.add(launch {
+                    //loadWorldCountriesList()
+                   // Log.i(BkConstants.BK_LOG_TAG, "Network Call ID: $i")
+                    //fetchDetailsRepo.fetchDetails()
+                })
+          //  }
+
+            job.joinAll()
+            Log.i(BkConstants.BK_LOG_TAG, "All Networks calls have completed executing")
+        }
+    }
+
+    /**----------------------------------------------------------------------------*/
 
     fun loadBorderCountriesList() {
         //https://restcountries.eu/rest/v2/name/{name}
@@ -110,4 +138,6 @@ class BkRepository private constructor(application: Application) {
         }
     }
 
+
 }
+
