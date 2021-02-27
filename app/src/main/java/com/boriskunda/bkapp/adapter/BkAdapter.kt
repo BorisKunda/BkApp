@@ -9,7 +9,7 @@ import com.boriskunda.bkapp.R
 import com.boriskunda.bkapp.data.Country
 
 class BkAdapter(
-    private val onRVItemClickListener: OnRVItemClickListener
+    private val onRVItemClickListener: OnRVItemClickListener?
 ) :
     RecyclerView.Adapter<BkAdapter.BkViewHolder>() {
 
@@ -29,7 +29,7 @@ class BkAdapter(
             countryNativeNameTv.text = country.nativeName
             //---
             itemView.setOnClickListener {
-                onRVItemClickListener.onRVItemClick(country)
+                onRVItemClickListener?.onRVItemClick(country)
             }
         }
 

@@ -7,12 +7,15 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.boriskunda.bkapp.R
+import com.boriskunda.bkapp.adapter.BkAdapter
+import com.boriskunda.bkapp.data.Country
 import com.boriskunda.bkapp.viewmodel.BkSharedViewModel
 
 
 class BorderCountriesFragment : Fragment() {
 
     private val bkSharedViewModel: BkSharedViewModel by activityViewModels()
+    private val borderCountryAdapter: BkAdapter = BkAdapter(null)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -25,9 +28,13 @@ class BorderCountriesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        //bkSharedViewModel.get
+        bkSharedViewModel.requestBorderCountriesList()
 
         bkSharedViewModel.borderCountriesListLd.observe(viewLifecycleOwner, {
+            borderCountryAdapter.apply {
+                countriesMutableList = it.toMutableList()
+                notifyDataSetChanged()
+            }
 
         })
 

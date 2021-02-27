@@ -56,7 +56,6 @@ class WorldCountriesFragment : Fragment(), BkAdapter.OnRVItemClickListener {
     }
 
     override fun onRVItemClick(country: Country) {
-        debugPrint(country.englishName)
         bkSharedViewModel.selectedCountryMld.value = country
         bkSharedViewModel.openBorderCountriesScreen()
     }

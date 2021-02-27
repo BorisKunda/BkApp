@@ -25,6 +25,8 @@ class BkRepository private constructor(application: Application) {
     private var worldCountriesMutableList: MutableList<Country> = mutableListOf()
     val borderCountriesListMLd: MutableLiveData<List<Country>> = MutableLiveData()
     private lateinit var comparatorAreaAsc: Comparator<Country>
+    private val gson: Gson = Gson()
+    private val borderCountriesMutableList: MutableList<Country> = mutableListOf()
 
 
     init {
@@ -44,13 +46,12 @@ class BkRepository private constructor(application: Application) {
     }
 
     fun loadWorldCountriesList() {
-        //"https://restcountries.eu/rest/v2/all"
         JsonArrayRequest(Request.Method.GET, BkConstants.GET_WORLD_COUNTRIES_LIST_URL, null,
 
             {
                 Log.i(BkConstants.BK_LOG_TAG, "****---Response:$it---****")
                 worldCountriesMutableList =
-                    Gson().fromJson(it.toString(), Array<Country>::class.java).toMutableList()
+                    gson.fromJson(it.toString(), Array<Country>::class.java).toMutableList()
                 worldCountriesListMLd.postValue(worldCountriesMutableList)
             },
 
@@ -63,77 +64,43 @@ class BkRepository private constructor(application: Application) {
         }
     }
 
-
-//
-//        val jsonObjectRequest: JsonObjectRequest = object : JsonObjectRequest(
-//            Request.Method.GET,
-//            BkConstants.GET_COUNTRY_BY_THREE_LETTER_CODE_URL + code,
-//            null,
-//            { countryFromCode = Gson().fromJson(it.toString(), Country::class.java) }, { countryFromCode = null })
-
-
-    // return countryFromCode
-
-
-    private fun loadCountryByItsCode(code: String) { //: // {
-
-        var jsonObjectRequest = JsonObjectRequest(Request.Method.GET,
-            BkConstants.GET_COUNTRY_BY_THREE_LETTER_CODE_URL + code,
-            null,
-            {},
-            {})
-
-//        //https://restcountries.eu/rest/v2/alpha/EGY
-//
-        //   var countryFromCode: Country? = null
-//        var jsonObjectRequest = object :
-        //      Request.Method.GET,
-        //      BkConstants.GET_COUNTRY_BY_THREE_LETTER_CODE_URL + code,
-        //      null,
-        //      {
-        //      },
-        //      {
-        //      }
-        //  )
-    }
-
-
-    /**----------------------------------------------------------------------------*/
-
-    /**coroutines test*/
-    fun tryAsyncNetworkCall(value: Country?) {
+    fun loadBorderCountriesList(value: Country?) {
 
         var borderCountriesCodes: Array<String>? = value?.borders
 
-        //Log.i(BkConstants.BK_LOG_TAG, "-----Async network calls without error handling-----")
         CoroutinesManager().ioScope.launch {
             val job = ArrayList<Job>()
 
             if (borderCountriesCodes != null) {
                 for (code in borderCountriesCodes) {
                     job.add(launch {
-
+                        loadCountryByItsCode(code)
                     })
                 }
             }
-            //Log.i(BkConstants.BK_LOG_TAG, "Making 10 asynchronous network calls")
-            // for (i in 0..10) {
-            job.add(launch {
-                //loadWorldCountriesList()
-                // Log.i(BkConstants.BK_LOG_TAG, "Network Call ID: $i")
-                //fetchDetailsRepo.fetchDetails()
-            })
-            //  }
 
             job.joinAll()
+            borderCountriesListMLd.postValue(borderCountriesMutableList)
             Log.i(BkConstants.BK_LOG_TAG, "All Networks calls have completed executing")
         }
     }
 
-    /**----------------------------------------------------------------------------*/
+    private fun loadCountryByItsCode(code: String) { //: // {
 
-    fun loadBorderCountriesList() {
-        //https://restcountries.eu/rest/v2/name/{name}
+        var jsonObjectRequest = JsonObjectRequest(Request.Method.GET,
+            BkConstants.GET_COUNTRY_BY_THREE_LETTER_CODE_URL + code,
+            null,
+            {
+                Log.i(BkConstants.BK_LOG_TAG, "****---Response:$it---****")
+                var country = gson.fromJson(it.toString(), Country::class.java)
+                borderCountriesMutableList.add(country)
+            },
+            {
+                Log.e(BkConstants.BK_LOG_TAG, "****---Response:${it.cause}---****")
+            })
+
+        volleyRequestQueue.add(jsonObjectRequest)
+
     }
 
     fun performCountriesListSort(countryListSortOptions: CountryListSortOptions) {
