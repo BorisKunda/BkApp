@@ -9,7 +9,6 @@ import com.android.volley.toolbox.JsonArrayRequest
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import com.boriskunda.bkapp.data.Country
-import com.boriskunda.bkapp.manager.CoroutinesManager
 import com.boriskunda.bkapp.utils.BkConstants
 import com.boriskunda.bkapp.utils.CountryListSortOptions
 import com.google.gson.Gson
@@ -66,23 +65,23 @@ class BkRepository private constructor(application: Application) {
 
     fun loadBorderCountriesList(value: Country?) {
 
-        var borderCountriesCodes: Array<String>? = value?.borders
+        val borderCountriesCodes: Array<String>? = value?.borders
 
-        CoroutinesManager().ioScope.launch {
-            val job = ArrayList<Job>()
+     // CoroutinesManager().ioScope.launch {
+     //     val job = ArrayList<Job>()
 
-            if (borderCountriesCodes != null) {
-                for (code in borderCountriesCodes) {
-                    job.add(launch {
-                        loadCountryByItsCode(code)
-                    })
-                }
-            }
+     //     if (borderCountriesCodes != null) {
+     //         for (code in borderCountriesCodes) {
+     //             job.add(launch {
+     //                 loadCountryByItsCode(code)
+     //             })
+     //         }
+     //     }
 
-            job.joinAll()
-            borderCountriesListMLd.postValue(borderCountriesMutableList)
-            Log.i(BkConstants.BK_LOG_TAG, "All Networks calls have completed executing")
-        }
+     //     job.joinAll()
+     //     borderCountriesListMLd.postValue(borderCountriesMutableList)
+     //     Log.i(BkConstants.BK_LOG_TAG, "All Networks calls have completed executing")
+     // }
     }
 
     private fun loadCountryByItsCode(code: String) { //: // {
