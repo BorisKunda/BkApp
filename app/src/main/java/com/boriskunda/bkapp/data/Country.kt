@@ -7,5 +7,5 @@ class Country(
     @SerializedName("name")
     var englishName: String,
     var area: String?,
-    var borders:Array<String>
+    var borders: Array<String>
 )

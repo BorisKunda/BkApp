@@ -1,7 +1,6 @@
 package com.boriskunda.bkapp.ui.fragments
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,8 +11,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.boriskunda.bkapp.R
 import com.boriskunda.bkapp.adapter.BkAdapter
 import com.boriskunda.bkapp.data.Country
-import com.boriskunda.bkapp.utils.BkConstants
-import com.boriskunda.bkapp.utils.BkConstants.debugPrint
 import com.boriskunda.bkapp.viewmodel.BkSharedViewModel
 import kotlinx.android.synthetic.main.fragment_world_countries.*
 
@@ -46,7 +43,6 @@ class WorldCountriesFragment : Fragment(), BkAdapter.OnRVItemClickListener {
             worldCountriesListLd.observe(viewLifecycleOwner, {
                 worldCountryAdapter.apply {
                     countriesMutableList = it.toMutableList()
-                    Log.i(BkConstants.BK_LOG_TAG, "****---WCF:$it---****")
                     notifyDataSetChanged()
                 }
             })

@@ -10,11 +10,8 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.boriskunda.bkapp.R
 import com.boriskunda.bkapp.adapter.BkAdapter
-import com.boriskunda.bkapp.data.Country
 import com.boriskunda.bkapp.viewmodel.BkSharedViewModel
 import kotlinx.android.synthetic.main.fragment_border_countries.*
-import kotlinx.android.synthetic.main.fragment_world_countries.*
-import kotlinx.android.synthetic.main.fragment_world_countries.world_countries_rv
 
 
 class BorderCountriesFragment : Fragment() {

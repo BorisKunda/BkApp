@@ -83,23 +83,6 @@ class BkRepository private constructor(application: Application) {
 
         }
 
-        //borderCountriesListMLd.postValue(borderCountriesMutableList)
-
-        // CoroutinesManager().ioScope.launch {
-        //     val job = ArrayList<Job>()
-
-        //     if (borderCountriesCodes != null) {
-        //         for (code in borderCountriesCodes) {
-        //             job.add(launch {
-        //                 loadCountryByItsCode(code)
-        //             })
-        //         }
-        //     }
-
-        //     job.joinAll()
-        //     borderCountriesListMLd.postValue(borderCountriesMutableList)
-        //     Log.i(BkConstants.BK_LOG_TAG, "All Networks calls have completed executing")
-        // }
     }
 
     private fun loadCountryByItsCode(code: String) { //: // {
