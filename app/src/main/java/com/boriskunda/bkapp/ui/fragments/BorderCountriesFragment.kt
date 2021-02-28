@@ -6,10 +6,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.boriskunda.bkapp.R
 import com.boriskunda.bkapp.adapter.BkAdapter
 import com.boriskunda.bkapp.data.Country
 import com.boriskunda.bkapp.viewmodel.BkSharedViewModel
+import kotlinx.android.synthetic.main.fragment_border_countries.*
+import kotlinx.android.synthetic.main.fragment_world_countries.*
+import kotlinx.android.synthetic.main.fragment_world_countries.world_countries_rv
 
 
 class BorderCountriesFragment : Fragment() {
@@ -27,6 +32,12 @@ class BorderCountriesFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        border_countries_rv.apply {
+            layoutManager = LinearLayoutManager(context)
+            addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
+            adapter = borderCountryAdapter
+        }
 
         bkSharedViewModel.requestBorderCountriesList()
 

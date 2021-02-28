@@ -67,8 +67,6 @@ class BkRepository private constructor(application: Application) {
 
         withContext(Dispatchers.IO) {
 
-            Log.i(BkConstants.BK_LOG_TAG, "Stop")
-
             val job = ArrayList<Job>()
 
             for (code in borderCountriesCodes) {
@@ -77,9 +75,11 @@ class BkRepository private constructor(application: Application) {
                 })
             }
 
+            delay(2000)
+
             job.joinAll()
 
-            Log.i(BkConstants.BK_LOG_TAG, "Stop")
+            borderCountriesListMLd.postValue(borderCountriesMutableList)
 
         }
 

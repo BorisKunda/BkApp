@@ -3,9 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FF5722"
     tools:context=".ui.fragments.BorderCountriesFragment">
 
-
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/border_countries_rv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 
 </LinearLayout>
