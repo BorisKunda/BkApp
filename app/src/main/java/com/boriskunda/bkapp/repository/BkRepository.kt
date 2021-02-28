@@ -12,9 +12,7 @@ import com.boriskunda.bkapp.data.Country
 import com.boriskunda.bkapp.utils.BkConstants
 import com.boriskunda.bkapp.utils.CountryListSortOptions
 import com.google.gson.Gson
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.joinAll
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 
 
 class BkRepository private constructor(application: Application) {
@@ -63,11 +61,21 @@ class BkRepository private constructor(application: Application) {
         }
     }
 
-    fun loadBorderCountriesList(value: Country?) {
+    suspend fun loadBorderCountriesList(value: Country?) {
 
-        val borderCountriesCodes: Array<String>? = value?.borders
+        val borderCountriesCodes: Array<String> = value?.borders ?: emptyArray()
 
-     // CoroutinesManager().ioScope.launch {
+        withContext(Dispatchers.IO) {
+
+            for (code in borderCountriesCodes) {
+                loadCountryByItsCode(code)
+            }
+
+        }
+
+        //borderCountriesListMLd.postValue(borderCountriesMutableList)
+
+        // CoroutinesManager().ioScope.launch {
      //     val job = ArrayList<Job>()
 
      //     if (borderCountriesCodes != null) {
