@@ -67,29 +67,39 @@ class BkRepository private constructor(application: Application) {
 
         withContext(Dispatchers.IO) {
 
+            Log.i(BkConstants.BK_LOG_TAG, "Stop")
+
+            val job = ArrayList<Job>()
+
             for (code in borderCountriesCodes) {
-                loadCountryByItsCode(code)
+                job.add(launch {
+                    loadCountryByItsCode(code)
+                })
             }
+
+            job.joinAll()
+
+            Log.i(BkConstants.BK_LOG_TAG, "Stop")
 
         }
 
         //borderCountriesListMLd.postValue(borderCountriesMutableList)
 
         // CoroutinesManager().ioScope.launch {
-     //     val job = ArrayList<Job>()
+        //     val job = ArrayList<Job>()
 
-     //     if (borderCountriesCodes != null) {
-     //         for (code in borderCountriesCodes) {
-     //             job.add(launch {
-     //                 loadCountryByItsCode(code)
-     //             })
-     //         }
-     //     }
+        //     if (borderCountriesCodes != null) {
+        //         for (code in borderCountriesCodes) {
+        //             job.add(launch {
+        //                 loadCountryByItsCode(code)
+        //             })
+        //         }
+        //     }
 
-     //     job.joinAll()
-     //     borderCountriesListMLd.postValue(borderCountriesMutableList)
-     //     Log.i(BkConstants.BK_LOG_TAG, "All Networks calls have completed executing")
-     // }
+        //     job.joinAll()
+        //     borderCountriesListMLd.postValue(borderCountriesMutableList)
+        //     Log.i(BkConstants.BK_LOG_TAG, "All Networks calls have completed executing")
+        // }
     }
 
     private fun loadCountryByItsCode(code: String) { //: // {

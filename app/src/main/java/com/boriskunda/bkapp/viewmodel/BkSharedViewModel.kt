@@ -4,10 +4,12 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.boriskunda.bkapp.data.Country
 import com.boriskunda.bkapp.repository.BkRepository
 import com.boriskunda.bkapp.utils.CountryListSortOptions
 import com.boriskunda.bkapp.utils.SingleLiveEvent
+import kotlinx.coroutines.launch
 
 class BkSharedViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -32,7 +34,11 @@ class BkSharedViewModel(application: Application) : AndroidViewModel(application
     }
 
     fun requestBorderCountriesList() {
-        bkRepository.loadBorderCountriesList(selectedCountryMld.value)
+
+        viewModelScope.launch {
+            bkRepository.loadBorderCountriesList(selectedCountryMld.value)
+        }
+
     }
 
     /**navigation*/
